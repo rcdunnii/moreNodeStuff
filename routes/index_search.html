@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+      $(function() {
+        $('#search').click(function(){
+          $.ajax({
+            type: "GET",
+            url: "/search",
+  /*          dataType: "json"  */
+          }).done (function (data) {            
+ /*           alert(data.hello);            */
+                alert(data);
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <button id="search">click</button>
+  </body>
+</html>

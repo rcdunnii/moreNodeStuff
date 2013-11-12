@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{listTitle}}{% endblock %}
+
+{% block head %}
+  {% parent %}
+  <link rel="stylesheet" href="./custom.css">
+{% endblock %}
+
+{% block content %}
+<h1 class="titleColor">{{listTitle}}</h1>
+
+{% if nutCollection %}
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email 1</th>
+    <th>Email 2</th>
+    <th>Phone 1</th>
+    <th>Phone 2</th>
+    <th><span class="red">Delete</span></th>
+  </tr>
+{% for nut in nutCollection %}
+ {# {% if loop.first %}<ul class="nutList">{% endif %} #}     
+  <tr>
+    <td><span class="purple">{{nut.firstName}}</td>
+    <td><span class="purple">{{nut.lastName}}</span></td>
+    <td><span class="blue">{{nut.email1}}</span> </td>
+    <td><span class="blue">{{nut.email2}}</span> </td>    
+    <td><span class="green">{{nut.phone1}}</span> </td>
+    <td><span class="green">{{nut.phone2}}</span> </td>
+    <td><a href="/delete?target={{nut._id.valueOf()}}" title="Delete"><span class="red">X</span></a></td>
+  </tr>
+ {# {% if loop.last %}</ul>{% endif %} #}
+{% endfor %}
+</table>
+{% else %}
+<p>No Nuts!</p>
+{% endif %}
+<a href="/">Home</a>
+{% endblock %}

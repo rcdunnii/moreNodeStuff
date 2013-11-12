@@ -1,0 +1,12 @@
+  $(function() {
+        $('#search').click(function(){
+          $.ajax({
+            type: "GET",
+            url: "/search",
+            dataType: "json"
+          }).done (function (data) {
+            alert(data);
+            console.log(data);
+          });
+        });
+      });
