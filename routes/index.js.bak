@@ -4,19 +4,6 @@
   * GET home page.
   */
  
- /*
-exports.listNuts = function() {
-  $.ajax({
-    type: "GET",
-    url: "/listNuts",
-    dataType: "json"
-  }).done (function (data) {
-    alert(data);
-    console.log(data);
-  });
-};
-*/
-  
  exports.index = function(req, res){
    res.render('index',{ title: 'Welcome, Nut' });
  };
@@ -117,46 +104,31 @@ exports.deleteNut = function(mongo, db) {
         });
     };
 };
+ 
+exports.editNut = function(mongo, db) {
+    return function(req, res) {
+        var collection = db.get('nuts')
+        ,   BSON = mongo.BSONPure
+        , obj_id = new BSON.ObjectID(req.param("target"));
+        collection.find({"_id": obj_id}, function(error,doc) {
+            if (!error) {
+                res.render('editNutForm', {locals :{nutToEdit: doc, editTitle : "Edit Nut" }});
+            } else {
+                console.log(error);
+                res.redirect("listNuts");
+                // And set the header so the address bar doesn't still say wrong thing
+                res.location("listNuts");
+            }
+        });
+    };
+};
     
  exports.listNuts = function(db) {
      return function(req, res) {
          var collection = db.get('nuts');
          collection.find({},{},function(e,docs){
             if (e) throw error;
-             res.render('listNuts', {"nutCollection" : docs, "listTitle": "Our Nuts", "LocObj" : "nugget.Loc", 
-             "LocObjAdrLen" : "nugget.Loc.Addr.length", "Address" : "nugget.Loc.Addr", "Phone" : "nugget.Loc.HomePh"});
+             res.render('listNuts', {"nutCollection" : docs, "listTitle": "Our Nuts"});
          });
      }
  }
- 
-/*
-exports.adduser = function(db) {
-    return function(req, res) {
-
-        // Get our form values. These rely on the "name" attributes
-        var userName = req.body.username;
-        var userEmail = req.body.useremail;
-
-        // Set our collection
-        var collection = db.get('nuts');
-
-        // Submit to the DB
-        collection.insert({
-            "username" : userName,
-            "email" : userEmail
-        }, function (err, doc) {
-            if (err) {
-                // If it failed, return error
-                res.send("There was a problem adding the information to the database.");
-            }
-            else {
-                // If it worked, forward to success page
-                res.redirect("userlist");
-                // And set the header so the address bar doesn't still say /adduser
-                res.location("userlist");
-            }
-        });
-
-    }
-}
-*/

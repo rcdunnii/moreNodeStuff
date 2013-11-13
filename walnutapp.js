@@ -55,6 +55,7 @@ app.get('/enroll', routes.enrollNutForm);
 app.get('/listNuts', routes.listNuts(db));
 app.post('/insert', routes.insertNut(db));
 app.get('/delete', routes.deleteNut(mongo,db));
+app.get('/edit', routes.editNut(mongo, db));
 
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -16,7 +16,7 @@
 {% for nut in nutCollection %}
      
   
-    <tr><td><span class="bold">{{nut.Name}}</td><td><a href="/delete?target={{nut._id.valueOf()}}" title="Delete"><span class="red">X</span></a></td></tr>
+    <tr><td><span class="bold">{{nut.Name}}</td><td><a href="/delete?target={{nut._id.valueOf()}}" title="Delete"><span class="red">X</span></a></td><td><a href="/edit?target={{nut._id.valueOf()}}" title="Delete"><span class="red">E</span></a></td></tr>
     <tr><td><span class="purple">{{nut.FName}}</td><td><span class="purple">{{nut.LName}}</span></td></tr>
     {% for key, val in nut.Loc %}
         {% if nut.Loc[key].Addr.length %}
@@ -29,7 +29,7 @@
     <tr><td><span class="yellow">{{nut.Bday}}</span> </td></tr>
     <tr><td><span class="black">{{nut.Note}}</span> </td></tr>    
 {% endfor %}
-</table>
+</table><br><br>
 {% else %}
 <p>No Nuts!</p>
 {% endif %}
