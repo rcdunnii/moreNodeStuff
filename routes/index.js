@@ -1,4 +1,5 @@
 
+
  /*
   * GET home page.
   */
@@ -45,23 +46,43 @@ exports.listNuts = function() {
  exports.insertNut = function(db) {
     return function(req, res) {
         // Get our form values. These rely on the "name" attributes
-        var sirName = req.body.sirName
-        , firstName = req.body.firstName
-        , lastName = req.body.lastName
-        , email1 = req.body.email1
-        , email2 = req.body.email2
-        , phone1 = req.body.phone1
-        , phone2 = req.body.phone2;
+        var sirName = req.body.Name
+        , firstName = req.body.FName
+        , lastName = req.body.LName
+        , addr1 = req.body.Addr1
+        , hphone1 = req.body.HomePh1
+        , addr2 = req.body.Addr2
+        , hphone2 = req.body.HomePh2
+        , addr3 = req.body.Addr3
+        , hphone3 = req.body.HomePh3
+        , email = req.body.Email
+        , cellphone = req.body.CellPh
+        , bday = req.body.Bday
+        , note = req.body.Note;        
          // Set our collection
         var collection = db.get('nuts');
         collection.insert({
-            "sirName" : sirName,
-            "firstName" : firstName,
-            "lastName" : lastName,
-            "email1": email1,
-            "email2": email2,
-            "phone1": phone1,
-            "phone2": phone2
+            "Name" : sirName,
+            "FName" : firstName,
+            "LName" : lastName,
+            "Loc" : [
+                        {
+                            "Addr" : addr1,
+                            "HomePh" : hphone1
+                        },
+                        {
+                            "Addr" : addr2,
+                            "HomePh" : hphone2
+                        },
+                        {
+                            "Addr" : addr3,
+                            "HomePh" : hphone3
+                        }
+                    ],                       
+            "Email": email,
+            "CellPh": cellphone,
+            "Bday": bday,
+            "Note": note
         }, function(err, doc) {
             if (err) {
                 res.send("Couldn't add nut to db");
@@ -75,11 +96,11 @@ exports.listNuts = function() {
      }
 }     
 
-exports.deleteNut = function(db) {
+exports.deleteNut = function(mongo, db) {
     return function(req, res) {
-         var mongodb = require('mongodb')
-        , collection = db.get('nuts')
-        ,    BSON = mongodb.BSONPure    
+      /*   var mongodb = require('mongodb')   */
+        var collection = db.get('nuts')
+        ,    BSON = mongo.BSONPure    
         , obj_id = new BSON.ObjectID(req.param("target"));     
         collection.remove({"_id" : obj_id}, function(error) {
              if (!error) {  
@@ -102,7 +123,8 @@ exports.deleteNut = function(db) {
          var collection = db.get('nuts');
          collection.find({},{},function(e,docs){
             if (e) throw error;
-             res.render('listNuts', {"nutCollection" : docs, "listTitle": "Our Nuts"});
+             res.render('listNuts', {"nutCollection" : docs, "listTitle": "Our Nuts", "LocObj" : "nut.Loc", 
+             "LocObjAdrLen" : "nugget.Loc.Addr.length", "Address" : "nugget.Loc.Addr", "Phone" : "nugget.Loc.HomePh"});
          });
      }
  }

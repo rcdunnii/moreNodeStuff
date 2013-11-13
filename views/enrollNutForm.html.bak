@@ -11,14 +11,20 @@
 <h1>{{enrollNut}}</h1>
 
 <form id="myForm" method="POST" action="/insert">
-<input type="text" placeholder="Sir Name" name="sirName" size="20" maxlen="20">
-<input type="text" placeholder="First Name" name="firstName" size="20" maxlen="20">
-<input type="text" placeholder="Last Name" name="lastName" size="20" maxlen="20">
-<input type="text" placeholder="Email 1" name="email1" size="20" maxlen="20">
-<input type="text" placeholder="Email 2" name="email2" size="20" maxlen="20">
-<input type="text" placeholder="Phone 1" name="phone1" size="20" maxlen="20">
-<input type="text" placeholder="Phone 2" name="phone2" size="20" maxlen="20">
-<input type="submit" value="Submit">
+<input type="text" placeholder="Sir Name"     name="Name"    size="20" maxlen="20"><br>
+<input type="text" placeholder="First Name"   name="FName"   size="20" maxlen="20"><br>
+<input type="text" placeholder="Last Name"    name="LName"   size="20" maxlen="20"><br>
+<input type="text" placeholder="Address 1"    name="Addr1"   size="60" maxlen="60"><br>
+<input type="text" placeholder="    Phone"    name="HomePh1" size="50" maxlen="50"><br>
+<input type="text" placeholder="Address 2"    name="Addr2"   size="60" maxlen="60"><br>
+<input type="text" placeholder="    Phone"    name="HomePh2" size="50" maxlen="50"><br>
+<input type="text" placeholder="Address 3"    name="Addr3"   size="60" maxlen="60"><br>
+<input type="text" placeholder="    Phone"    name="HomePh3" size="50" maxlen="50"><br>
+<input type="text" placeholder="Email"        name="Email"   size="30" maxlen="30"><br>
+<input type="text" placeholder="Cell Phone"   name="CellPh"  size="50" maxlen="50"><br>
+<input type="text" placeholder="Birthday (mm/dd/yyyy)" name="Bday" size="10" maxlen="10"><br>
+<input type="text" placeholder="Note"         name="Note" size="50" maxlen="50"><br><br>
+<input type="submit" value="   Submit" class="submitBtn">
 </form>
-
+<a href="/">Home</a>
 {% endblock %}

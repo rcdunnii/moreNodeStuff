@@ -54,7 +54,7 @@ app.get('/triage', routes.triage);
 app.get('/enroll', routes.enrollNutForm);
 app.get('/listNuts', routes.listNuts(db));
 app.post('/insert', routes.insertNut(db));
-app.get('/delete', routes.deleteNut(db));
+app.get('/delete', routes.deleteNut(mongo,db));
 
 
 http.createServer(app).listen(app.get('port'), function(){
