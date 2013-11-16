@@ -18,8 +18,7 @@
             res.location("listNuts"); // set header of form 
         } else if (req.param('add')) {   
            res.redirect("enroll");
-            res.location("enroll"); // set form header
-  /*              addNut(); */
+           res.location("enroll"); // set form header
         } else {
             res.end("Must make choice!");
         }
@@ -30,6 +29,42 @@
    res.render('enrollNutForm', {title: "Add New Nut"});
  };
  
+ exports.updateNut = function(mongo, db) {
+	return function(req, res) {
+		var collection = db.get('nuts')
+        ,	BSON = mongo.BSONPure
+		,   obj_id = new BSON.ObjectID(req.body.nut_ID);
+			collection.update({"_id": obj_id},
+				{"$set": { "Name":  req.body.Name,
+					  "FName": req.body.FName,
+					  "LName": req.body.LName,
+					  "Loc" : [
+									{
+										"Addr": req.body.Addr1,
+										"HomePh": req.body.HomePh1
+									},
+									{
+										"Addr": req.body.Addr2,
+										"HomePh": req.body.HomePh2
+									},
+									{
+										"Addr": req.body.Addr3,
+										"HomePh": req.body.HomePh3
+									}
+								],						
+					  "Email": req.body.Email,
+					  "CellPh": req.body.CellPh,
+					  "Bday": req.body.Bday,
+					  "Note": req.body.Note }}, function(error) {
+							if (error) {
+								console.log(error);
+							}				  
+							res.redirect("listNuts");		
+							res.location("listNuts");			
+						});
+	};
+};	
+
  exports.insertNut = function(db) {
     return function(req, res) {
         // Get our form values. These rely on the "name" attributes
@@ -85,7 +120,7 @@
 
 exports.deleteNut = function(mongo, db) {
     return function(req, res) {
-      /*   var mongodb = require('mongodb')   */
+ 
         var collection = db.get('nuts')
         ,    BSON = mongo.BSONPure    
         , obj_id = new BSON.ObjectID(req.param("target"));     
@@ -108,11 +143,12 @@ exports.deleteNut = function(mongo, db) {
 exports.editNut = function(mongo, db) {
     return function(req, res) {
         var collection = db.get('nuts')
-        ,   BSON = mongo.BSONPure
-        , obj_id = new BSON.ObjectID(req.param("target"));
-        collection.find({"_id": obj_id}, function(error,doc) {
+		,	BSON = mongo.BSONPure
+		,   obj_id = new BSON.ObjectID(req.param("target"));
+        collection.find({"_id": obj_id}, function(error, doc) {
             if (!error) {
-                res.render('editNutForm', {nutToEdit: doc, editTitle : "Edit Nut" });
+			    var idHexStr = doc[0]._id.toString(); // get hex string val of obj id
+                res.render('editNutForm', {"editDoc": doc, "editTitle": "Edit Nut", "idStr" : idHexStr});
             } else {
                 console.log(error);
                 res.redirect("listNuts");
@@ -122,7 +158,9 @@ exports.editNut = function(mongo, db) {
         });
     };
 };
-    
+ 
+
+	
  exports.listNuts = function(db) {
      return function(req, res) {
          var collection = db.get('nuts');

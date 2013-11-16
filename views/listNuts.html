@@ -9,27 +9,28 @@
 
 {% block content %}
 <h1 class="titleColor">{{listTitle}}</h1>
-
+<div class="content">
 {% if nutCollection %}
 <table>
- 
 {% for nut in nutCollection %}
-     
-  
-    <tr><td><span class="bold">{{nut.Name}}</td><td><a href="/delete?target={{nut._id.valueOf()}}" title="Delete"><span class="red">X</span></a></td><td><a href="/edit?target={{nut._id.valueOf()}}" title="Edit"><span class="red">E</span></a></td></tr>
-    <tr><td><span class="purple">{{nut.FName}}</td><td><span class="purple">{{nut.LName}}</span></td></tr>
-    {% for key, val in nut.Loc %}
-        {% if nut.Loc[key].Addr.length %}
-            <tr><td><span class="blue">{{val.Addr}}</span> </td></tr>
-            <tr><td><span class="blue">{{val.HomePh}}</span> </td></tr>
-        {% endif %}
-    {% endfor %}    
-    <tr><td><span class="blue">{{nut.Email}}</span> </td></tr>    
-    <tr><td><span class="green">{{nut.CellPh}}</span> </td></tr>
-    <tr><td><span class="yellow">{{nut.Bday}}</span> </td></tr>
-    <tr><td><span class="black">{{nut.Note}}</span> </td></tr>    
+	<div class="oneNut">    
+		<tr><td class="icons"><span class="bold">{{nut.Name}}       <a href="/edit?target={{nut._id.valueOf()}}" title="Edit"><img src="edit.png"></a>   <a href="/delete?target={{nut._id.valueOf()}}" title="Delete"><img src="trash.png"></a></td></tr>
+		<tr><td><span class="purple">{{nut.FName}} {{nut.LName}}</span></td></tr>
+		{% for key, val in nut.Loc %}
+			{% if nut.Loc[key].Addr.length %}
+				<tr><td><span class="blue">		{{val.Addr}}</span> </td></tr>
+				<tr><td><span class="blue">		{{val.HomePh}}</span> </td></tr>
+			{% endif %}
+		{% endfor %}    
+		<tr><td><span class="blue">	{{nut.Email}}</span> </td></tr>    
+		<tr><td><span class="green">	{{nut.CellPh}}</span> </td></tr>
+		<tr><td><span class="maroon">	{{nut.Bday}}</span> </td></tr>
+		<tr><td><span class="black">	{{nut.Note}}</span> </td></tr>
+		<tr></tr><tr></tr>
+	</div>
 {% endfor %}
 </table><br><br>
+</div>
 {% else %}
 <p>No Nuts!</p>
 {% endif %}

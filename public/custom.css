@@ -1,4 +1,7 @@
-.titleColor, .blue {
+.titleColor {
+	color: silver;
+}
+.blue {
     color: blue;
 }
 
@@ -16,7 +19,36 @@
  
 .purple {
     color: purple;
-} 
+}
+
+.maroon {
+	color: maroon;
+}
+	
 ul.nutList {
     list-style-type: none;
-}    
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.content {
+	position: relative;
+	width: 300px;
+	height: 500px;
+	overflow: scroll;
+}
+
+.oneNut {
+	background-color: maroon;
+}	
+	
+td {
+	white-space: pre;
+}
+
+td.icons {
+	width: 25px;
+}	
+	
